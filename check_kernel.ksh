@@ -1,6 +1,6 @@
 #!/bin/ksh
 #
-# $Id:$
+# $Id$
 #
 # Xymon Monitor Kernel Version Test
 #     - Allows the Xymon client to test that the running kernel is the latest
@@ -27,7 +27,7 @@
 #     9 = ERROR: Missing Xymon environment. Please use xymoncmd.
 #
 AUTHOR="Mike Arnold <mike at razorsedge dot org>"
-VERSION=20180806
+VERSION=20200524
 LOCATION="http://www.razorsedge.org/~mike/software/check_kernel.ksh"
 #
 if [ $DEBUG ]; then set -x; fi
@@ -105,7 +105,8 @@ if [ -z "$XYMONCLIENTHOME" ]; then
   exit 9
 fi
 
-KERNEL_INSTALLED=$(ls -v /boot/vmlinuz* | tail -1 | sed -e 's|/boot/vmlinuz-||')
+#KERNEL_INSTALLED=$(ls -v /boot/vmlinuz* | tail -1 | sed -e 's|/boot/vmlinuz-||')
+KERNEL_INSTALLED=$(rpm -q --queryformat '%{BUILDTIME} %{VERSION}-%{RELEASE}.%{ARCH}\n' kernel | sort | tail -1 | awk '{print $2}')
 KERNEL_BOOT=$(uname -r)
 KERNEL_INSTALLED_BUILDDATE=$(rpm -q --queryformat '%{BUILDTIME}\n' kernel-${KERNEL_INSTALLED})
 KERNEL_BOOT_BUILDDATE=$(rpm -q --queryformat '%{BUILDTIME}\n' kernel-${KERNEL_BOOT})
