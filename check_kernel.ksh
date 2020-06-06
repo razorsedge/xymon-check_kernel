@@ -28,7 +28,7 @@
 #
 AUTHOR="Mike Arnold <mike at razorsedge dot org>"
 VERSION=20200524
-LOCATION="http://www.razorsedge.org/~mike/software/check_kernel.ksh"
+LOCATION="https://github.com/razorsedge/xymon-check_kernel"
 #
 if [ $DEBUG ]; then set -x; fi
 #
